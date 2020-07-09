@@ -45,33 +45,10 @@ else
     num_packets = length(origin_times);
 end
 
+% Simulation results
 departure_times = origin_times + sum(system_times, 1);
 aoi_sim = departure_times(min_index + 1 : end) - origin_times(min_index : end - 1);
-
-% Case 1A: both systems are full
-ind_a = intersect(find(system_times(1, min_index + 1 : end)), find(system_times(3, min_index + 1 : end)));
-aoi_a_sim = aoi_sim(ind_a);
-t_a_sim = sum(system_times(:, ind_a + min_index));
-
-% Case 1B: the second system is empty
-ind_b = intersect(find(system_times(1, min_index + 1 : end)), find(system_times(3, min_index + 1 : end) == 0));
-aoi_b_sim = aoi_sim(ind_b);
-t_b_sim = sum(system_times(:, ind_b + min_index));
-
-% Case C: the first system is empty
-ind_c = intersect(find(system_times(1, min_index + 1 : end) == 0), find(system_times(3, min_index + 1 : end) > 0));
-aoi_c_sim = aoi_sim(ind_c);
-t_c_sim = sum(system_times(:, ind_c + min_index));
-
-
-% Case D: both systems are empty
-ind_d = intersect(find(system_times(1, min_index + 1 : end) == 0), find(system_times(3, min_index + 1 : end) == 0));
-aoi_d_sim = aoi_sim(ind_d);
-t_d_sim = sum(system_times(:, ind_d + min_index));
-
-% General case
-t_sim = [t_a_sim, t_b_sim, t_c_sim, t_d_sim];
-aoi_sim = [aoi_a_sim, aoi_c_sim, aoi_c_sim, aoi_d_sim];
+t_sim = departure_times(min_index + 1 : end) - origin_times(min_index + 1 : end);
 [t_sim_hist, ~] = hist(t_sim, delta);
 [aoi_sim_hist, ~] = hist(aoi_sim, delta);
 

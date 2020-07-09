@@ -29,7 +29,7 @@ aoi_a = aoi_a + alpha(1) * mu(1) * alpha(2) / (mu(2) - mu(1)) / (mu(2) - alpha(1
 
 % Case B
 aoi_b = mu(1) * exp_am1;
-aoi_b = aoi_b - lambda * mu(1) / (alpha(2)) .* exp(-mu(1) .* delta) .* (1 - exp(-alpha(2) .* delta));
+aoi_b = aoi_b - lambda / (alpha(2)) * mu(1) .* exp(-mu(1) .* delta) .* (1 - exp(-alpha(2) .* delta));
 aoi_b = aoi_b + (mu(1) * mu(2) * alpha(1)) / (lambda * (mu(2) - mu(1))) .* (exp(-alpha(1) .* delta) - (1 + lambda .* delta) .* exp(-mu(1) .* delta));
 aoi_b = aoi_b + (mu(1) * mu(2) * alpha(2)) / ((mu(2) - mu(1)) * (mu(2) - alpha(1))) * (lambda .* exp_m12 / (mu(2) - mu(1)));
 aoi_b = aoi_b - (mu(1) * mu(2) * alpha(2)) / ((mu(2) - mu(1)) * (mu(2) - alpha(1))) .* exp_am1;
@@ -48,6 +48,7 @@ aoi_d = (exp(-lambda * delta) + exp(-(mu(2) + alpha(1)) * delta)) ./ (alpha(1) *
 aoi_d = aoi_d + delta .* (exp(-mu(2) * delta) - exp(-mu(1) * delta)) / (mu(2) - mu(1)) ;
 aoi_d = aoi_d - (exp(-mu(2) .* delta) + exp(-mu(1) .* delta)) ./ (alpha(1) * alpha(2));
 aoi_d = aoi_d * mult;
+
 
 % General case
 aoi = aoi_a + aoi_b + aoi_c + aoi_d;
