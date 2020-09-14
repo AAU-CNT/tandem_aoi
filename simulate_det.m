@@ -10,19 +10,20 @@ clearvars
 % Switches and basic parametersì
 running = false;
 min_index = 1000; % Parameter to avoid transitory behavior
-stepsize = 0.1;
+stepsize = 0.001;
 delta = stepsize : stepsize : 25;
 
 % Check whether to rerun the Monte Carlo
 if (running)
     % Simulation parameters
     lambda = 0.5;
-    mu = [1, 1.2];
+    mu = 1;
+    D = 0.8;
     num_packets = 10000000;
     
     % Auxiliary parameters
     alpha = mu - lambda;
-    rho = lambda ./ mu;
+    rho = lambda / mu;
     
     % System time: W1, S1, W2, S2 for each packet
     system_times = zeros(4, num_packets + min_index);
@@ -32,7 +33,7 @@ if (running)
     
     % The first packet has no queue
     system_times(2, :) = exprnd(1 / mu(1), 1, num_packets + min_index);
-    system_times(4, :) = exprnd(1 / mu(2), 1, num_packets + min_index);
+    system_times(4, :) = 1;
     
     % Compute waiting time at each relay
     for i = 2 : num_packets + min_index
@@ -53,20 +54,9 @@ t_sim = departure_times(min_index + 1 : end) - origin_times(min_index + 1 : end)
 [aoi_sim_hist, ~] = hist(aoi_sim, delta);
 
 % Compute theoretical results
-t_th = system_time(lambda, mu, delta);
-aoi_th = peak_aoi(lambda, mu, delta);
+aoi_th = peak_aoi_det(lambda, mu, D, delta);
 
-% Plot results
 f1 = figure(1);
-plot(delta, cumsum(t_th) * stepsize, 'b')
-hold on
-scatter(delta, cumsum(t_sim_hist) / sum(t_sim_hist), 'b')
-hold on
-xlabel('System time T')
-ylabel('CDF')
-legend('Theoretical system time CDF', 'Empirical system time CDF')
-
-f2 = figure(2);
 plot(delta, cumsum(aoi_th) * stepsize, 'b')
 hold on
 scatter(delta, cumsum(aoi_sim_hist) / sum(aoi_sim_hist), 'b')
