@@ -17,7 +17,7 @@ delta = stepsize : stepsize : 25;
 if (running)
     % Simulation parameters
     lambda = 0.5;
-    mu=[1.6 1];
+    mu=[1 1.2];
     num_packets = 10000000;
     
     % Auxiliary parameters
