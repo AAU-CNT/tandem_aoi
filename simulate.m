@@ -16,8 +16,8 @@ delta = stepsize : stepsize : 25;
 % Check whether to rerun the Monte Carlo
 if (running)
     % Simulation parameters
-    lambda = 0.5;
-    mu = [1, 1.2];
+    lambda = 0.4;
+    mu = [1, 1];
     num_packets = 10000000;
     
     % Auxiliary parameters

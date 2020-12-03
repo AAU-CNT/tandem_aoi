@@ -8,7 +8,7 @@ close all
 clearvars
 
 % Switches and basic parametersì
-running = false;
+running = true;
 min_index = 1000; % Parameter to avoid transitory behavior
 stepsize = 0.001;
 delta = stepsize : stepsize : 25;
